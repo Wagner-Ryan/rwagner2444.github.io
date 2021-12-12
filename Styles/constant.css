@@ -1,0 +1,123 @@
+html, body, div{
+    margin:0;
+}
+
+#header{
+    height: 120px;
+    background-color: white;
+    z-index: 1;
+    margin-left: 0px;
+}
+
+#logo{
+    margin: 20px 20px 0 0;
+}
+
+#logo img{
+    height: 80px;
+    width: auto;
+    border-radius: 100%;
+}
+
+#name{
+    font-size: 48px;
+    margin-top: 24px;
+    margin-right: 60px;
+}
+
+#dropdown:hover #drop-menu{
+    display: block;
+}
+
+#dropdown{
+    width: 105px;
+    display: none;
+}
+
+#menu{
+    width: 30px;
+    height: auto;
+    margin: 56px auto 0 auto;
+}
+
+#bars{
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    margin-top: 4px;
+}
+
+#drop-menu{
+    width: 105px;
+    height: auto;
+    font-size: 16px;
+    text-align: center;
+    background-color: white;
+    z-index: 1;
+    padding-top: 10px;
+    padding-bottom: 4px;
+    float: left;
+    display: none;
+}
+
+#drop-menu a{
+    color: black;
+}
+
+#drop-menu a:hover{
+    background-color: yellow;
+}
+
+#nav{
+    z-index: 1;
+}
+
+#nav-link{
+    margin-top: 40px;
+    font-size: 20px;
+    color: black;
+    text-decoration: underline;
+}
+
+#nav-link:hover{
+    background-color: yellow;
+}
+
+@media(max-width:923px){
+    #nav-item{display: none;}
+    #dropdown{display: block;}
+    #name{margin-right: 0px;}
+}
+
+@media(max-width: 646px){
+    #logo img{height: 60px;}
+    #name{font-size: 36px;}
+    #bars{width: 20px; height: 2px; margin-top: 3px;}
+    #menu{width: 25px; margin-top: 47px;}
+    #header{height: 100px;}
+}
+
+@media(max-width: 533px){
+    #logo img{height: 50px;}
+    #name{font-size: 30px; margin-right: -16px;}
+    #menu{margin-top: 44px;}
+    #header{height: 90px}
+}
+
+@media(max-width: 460px){
+    #logo img{height: 40px;}
+    #name{font-size: 24px;}
+    #bars{width: 15px; margin-top: 2px;}
+    #menu{width: 20px; margin-top: 39px;}
+    #header{height: 80px;}
+    #drop-menu{font-size: 12px; width: 70px;}
+    #dropdown{width: 70px;}
+}
+
+@media(max-width: 367px){
+    #name{font-size: 20px;}
+    #logo img{height: 30px;}
+    #menu{margin-top: 36px;}
+    #bars{width: 15px;}
+    #logo{margin-right: 5px; margin-top: 25px;}
+}

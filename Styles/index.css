@@ -3,6 +3,14 @@
     height: auto;
 }
 
+#message{
+    margin: 30px auto;
+    background-color: rgb(245, 245, 245);
+    font-size: 36px;
+    text-align: center;
+    width: 60vw;
+}
+
 #info{
     margin: 30px auto;
     width: 786px;

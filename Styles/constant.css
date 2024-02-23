@@ -1,0 +1,15 @@
+body {
+    background-image: url(PegBoard_Background.jpg);
+    background-size: auto;
+    background-position: center;
+}
+
+#header{
+    width: 25vw;
+    height: 10vh;
+    font-size: 3.5vh;
+    text-align: center;
+    background-color: white;
+    margin: 4vw auto;
+    padding: 2vw 2vh;
+}

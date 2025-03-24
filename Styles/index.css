@@ -1,15 +1,5 @@
-#header1{
+#header{
     font-size: 48px;
     font-weight: bold;
-    margin: 10px auto;
-}
-
-#header2{
-    font-size: 36px;
-    margin: 10px auto;
-}
-
-#header3{
-    font-size: 36px;
     margin: 10px auto;
 }

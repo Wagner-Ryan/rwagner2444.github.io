@@ -1,13 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/index.css">
-    <title>AKONEW</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Take Photo & Submit Revision</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #f9f9f9;
+  }
+  #video, #canvas {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 6px;
+    background: #000;
+  }
+  form {
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    margin-top: 1rem;
+  }
+  button {
+    margin-top: 1rem;
+    background-color: #0078d7;
+    color: white;
+    font-size: 1rem;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  button:hover {
+    background-color: #005fa3;
+  }
+  #captureBtn {
+    margin-top: 0.5rem;
+  }
+</style>
 </head>
 <body>
-    <div id="header">AKONEW.COM!</div>
+
+<h1>Submit Electrical Drawing Revision</h1>
+
+<form id="revisionForm">
+  <label for="video">Camera Preview:</label>
+  <video id="video" autoplay playsinline></video>
+  
+  <button type="button" id="captureBtn">Take Photo</button>
+  
+  <canvas id="canvas" style="display:none;"></canvas>
+  
+  <label for="notes">Additional Notes:</label>
+  <textarea id="notes" placeholder="Enter notes here"></textarea>
+  
+  <button type="submit">Submit Revision</button>
+</form>
+
+<script>
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const captureBtn = document.getElementById('captureBtn');
+  const form = document.getElementById('revisionForm');
+  let photoDataURL = null;  // store the captured photo here
+
+  // Request access to camera and stream video
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+      video.srcObject = stream;
+    } catch (err) {
+      alert('Could not access camera: ' + err.message);
+    }
+  }
+
+  startCamera();
+
+  // Capture photo from video stream
+  captureBtn.addEventListener('click', () => {
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    photoDataURL = canvas.toDataURL('image/png');
+
+    // Show the captured photo preview by replacing the video element temporarily
+    video.style.display = 'none';
+    canvas.style.display = 'block';
+
+    captureBtn.textContent = 'Retake Photo';
+  });
+
+  // Allow retaking photo
+  captureBtn.addEventListener('click', () => {
+    if (canvas.style.display === 'block') {
+      // Reset to video stream to retake photo
+      canvas.style.display = 'none';
+      video.style.display = 'block';
+      photoDataURL = null;
+      captureBtn.textContent = 'Take Photo';
+    }
+  }, { once: false });
+
+  // Form submission handler
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (!photoDataURL) {
+      alert('Please take a photo before submitting.');
+      return;
+    }
+
+    const notes = document.getElementById('notes').value.trim();
+
+    // For demonstration, just show a summary alert
+    alert(`Submitting revision with notes:\n${notes}\n\nPhoto size: ${photoDataURL.length} characters in base64`);
+
+    // Here you would send `photoDataURL` and `notes` to your backend or cloud storage API.
+    // Example:
+    // fetch('YOUR_UPLOAD_ENDPOINT', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ photo: photoDataURL, notes: notes })
+    // })
+
+    // Reset form/UI for another submission
+    photoDataURL = null;
+    canvas.style.display = 'none';
+    video.style.display = 'block';
+    captureBtn.textContent = 'Take Photo';
+    form.reset();
+  });
+</script>
+
 </body>
 </html>
